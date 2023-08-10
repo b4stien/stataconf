@@ -1,5 +1,5 @@
 """What if Jason tried to solve the configuration problem?"""
-__version__ = "0.0.5"
+__version__ = "0.0.6"
 
 from abc import ABC, abstractmethod
 import collections

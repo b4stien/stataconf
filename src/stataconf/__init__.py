@@ -1,5 +1,5 @@
 """What if Jason tried to solve the configuration problem?"""
-__version__ = "0.0.6"
+__version__ = "0.1.0"
 
 from abc import ABC, abstractmethod
 import collections
@@ -8,10 +8,7 @@ import pathlib
 import shutil
 import subprocess
 import tempfile
-
-# This will change with Python 3.11
-import toml as tomllib
-
+import tomllib
 import typing
 import urllib.parse
 

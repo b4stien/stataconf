@@ -1,9 +1,26 @@
 rm -Rf dist
 
-rm -Rf build
-PLAT_NAME=macosx_11_0_arm64 python -m build --wheel -C="--build-option=--python-tag" -C="--build-option=py311" -C="--build-option=--plat-name" -C="--build-option=macosx_11_0_arm64"
 
-rm -Rf build
-PLAT_NAME=manylinux2014_x86_64 python -m build --wheel -C="--build-option=--python-tag" -C="--build-option=py311" -C="--build-option=--plat-name" -C="--build-option=manylinux2014_x86_64"
+PYTHON_TAG=py311
+export DIST_EXTRA_CONFIG=build/setup.cfg
+
+declare -a platform_names=("macosx_11_0_arm64" "manylinux2014_x86_64" "manylinux2014_aarch64")
+
+for plat_name in "${platform_names[@]}"
+do
+    export PLAT_NAME=$plat_name
+
+    mkdir build
+    echo "[bdist_wheel]\npython_tag=$PYTHON_TAG\nplat_name=$PLAT_NAME" > $DIST_EXTRA_CONFIG
+    cat $DIST_EXTRA_CONFIG
+
+    python -m build --wheel
+
+    rm -Rf build
+done
+
 
 twine upload dist/*
+
+
+

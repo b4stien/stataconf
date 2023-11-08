@@ -1,10 +1,11 @@
 """What if Jason tried to solve the configuration problem?"""
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 from abc import ABC, abstractmethod
 import collections
 import os
 import pathlib
+import platform
 import shutil
 import subprocess
 import tempfile
@@ -162,10 +163,11 @@ class SopsProtectedTomlStataLoader(StataLoader):
 
             sops_binary = "sops"
             if shutil.which(sops_binary) is None:
+                os_name = "linux" if platform.system() == "Linux" else "darwin"
+                platform_name = "amd64" if platform.machine() == "x86_64" else "arm64"
                 sops_binary = str(
                     pathlib.PurePath(__file__).parent.joinpath(
-                        # FIXME: It can be darwin.arm64
-                        "sops-v3.7.3.linux.amd64"
+                        f"sops-v3.8.1.{os_name}.{platform_name}"
                     )
                 )
 

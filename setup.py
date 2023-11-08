@@ -9,9 +9,11 @@ class CustomBuildPy(build_py):
         platform = os.environ["PLAT_NAME"]
 
         if platform == "macosx_11_0_arm64":
-            must_ends_with = "arm64"
+            must_ends_with = "darwin.arm64"
         elif platform == "manylinux2014_x86_64":
-            must_ends_with = "amd64"
+            must_ends_with = "linux.amd64"
+        elif platform == "manylinux2014_aarch64":
+            must_ends_with = "linux.arm64"
         else:
             raise Exception("Unknown platform")
 
